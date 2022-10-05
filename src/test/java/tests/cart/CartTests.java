@@ -8,6 +8,8 @@ import pages.cartPage.CartPage;
 import pages.homePage.HomePage;
 import tests.TestBase;
 
+import static filesReaders.ReadFromFiles.getPropertyByKey;
+
 public class CartTests extends TestBase {
     protected ThreadLocal<HomePage> homePage = new ThreadLocal<>();
 private SoftAssert softAssert = null;
@@ -20,7 +22,8 @@ private SoftAssert softAssert = null;
     public void setupCartTests ()
     {
         softAssert = new SoftAssert();
-        homePage.set(loginPage.get().loginToApp("standard_user", "secret_sauce")) ;
+        homePage.set(loginPage.get().loginToApp(getPropertyByKey("environment.properties", "USER_NAME")
+                , getPropertyByKey("environment.properties", "PASSWORD"))) ;
     }
 
     @Test(priority = 1)

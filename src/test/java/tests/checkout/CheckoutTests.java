@@ -1,5 +1,6 @@
 package tests.checkout;
 
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -11,26 +12,41 @@ import pages.homePage.HomePage;
 import pages.login.LoginPage;
 import tests.TestBase;
 
+import static filesReaders.ReadFromFiles.getJsonStringValueByKey;
+import static filesReaders.ReadFromFiles.getPropertyByKey;
+
 public class CheckoutTests extends TestBase {
     private ThreadLocal<HomePage> homePage = new ThreadLocal<>();
 
-private SoftAssert softAssert = null;
+    private SoftAssert softAssert = null;
 
+    String fName;
+    String lName;
+    String zipCode;
+
+
+    @BeforeClass
+    public void setup_setTestData() {
+        String checkoutTestDataFileName = "checkoutTestData.json";
+        fName = getJsonStringValueByKey(checkoutTestDataFileName, "firstname");
+        lName = getJsonStringValueByKey(checkoutTestDataFileName, "lastname");
+        zipCode = getJsonStringValueByKey(checkoutTestDataFileName, "zipcode");
+    }
 
     @BeforeMethod
-    public void setupCheckoutTests ()
-    {
+    public void setupCheckoutTests() {
         softAssert = new SoftAssert();
-        homePage.set(loginPage.get().loginToApp("standard_user", "secret_sauce"));
+        homePage.set(loginPage.get().loginToApp(getPropertyByKey("environment.properties", "USER_NAME")
+                , getPropertyByKey("environment.properties", "PASSWORD")));
     }
+
     @Test
-    public void testCheckoutToCompleteTheOrder ()
-    {
+    public void testCheckoutToCompleteTheOrder() {
         homePage.get().addBackpackToCart();
-        CartPage cartPage = homePage.get().clickShoppingCartLink() ;
-        CheckoutPage checkoutPage = cartPage.clickCheckoutButton () ;
+        CartPage cartPage = homePage.get().clickShoppingCartLink();
+        CheckoutPage checkoutPage = cartPage.clickCheckoutButton();
         CheckoutOverviewPage checkoutOverviewPage =
-                checkoutPage.fillCheckoutFormThenClickContinue("Dummyl", "Dummyl", "12344");
+                checkoutPage.fillCheckoutFormThenClickContinue(fName, lName, zipCode);
         CheckoutCompletionPage checkoutCompletionPage = checkoutOverviewPage.clickFinishButton();
         softAssert.assertEquals(checkoutCompletionPage.getOrderCompletionHeader(),
                 "THANK YOU FOR YOUR ORDER");
@@ -38,14 +54,14 @@ private SoftAssert softAssert = null;
                 "Your order has been dispatched, and will arrive just as fast as the pony can get there!");
         softAssert.assertAll("Some of Checkout assertions are not as expected");
     }
+
     @Test
-    public void testCheckoutToCompleteTheOrder2 ()
-    {
+    public void testCheckoutToCompleteTheOrder2() {
         homePage.get().addBackpackToCart();
-        CartPage cartPage = homePage.get().clickShoppingCartLink() ;
-        CheckoutPage checkoutPage = cartPage.clickCheckoutButton () ;
+        CartPage cartPage = homePage.get().clickShoppingCartLink();
+        CheckoutPage checkoutPage = cartPage.clickCheckoutButton();
         CheckoutOverviewPage checkoutOverviewPage =
-                checkoutPage.fillCheckoutFormThenClickContinue("Dummyl", "Dummyl", "12344");
+                checkoutPage.fillCheckoutFormThenClickContinue(fName, lName, zipCode);
         CheckoutCompletionPage checkoutCompletionPage = checkoutOverviewPage.clickFinishButton();
         softAssert.assertEquals(checkoutCompletionPage.getOrderCompletionHeader(),
                 "THANK YOU FOR YOUR ORDER");
@@ -53,14 +69,14 @@ private SoftAssert softAssert = null;
                 "Your order has been dispatched, and will arrive just as fast as the pony can get there!");
         softAssert.assertAll("Some of Checkout assertions are not as expected");
     }
+
     @Test
-    public void testCheckoutToCompleteTheOrder22 ()
-    {
+    public void testCheckoutToCompleteTheOrder22() {
         homePage.get().addBackpackToCart();
-        CartPage cartPage = homePage.get().clickShoppingCartLink() ;
-        CheckoutPage checkoutPage = cartPage.clickCheckoutButton () ;
+        CartPage cartPage = homePage.get().clickShoppingCartLink();
+        CheckoutPage checkoutPage = cartPage.clickCheckoutButton();
         CheckoutOverviewPage checkoutOverviewPage =
-                checkoutPage.fillCheckoutFormThenClickContinue("Dummyl", "Dummyl", "12344");
+                checkoutPage.fillCheckoutFormThenClickContinue(fName, lName, zipCode);
         CheckoutCompletionPage checkoutCompletionPage = checkoutOverviewPage.clickFinishButton();
         softAssert.assertEquals(checkoutCompletionPage.getOrderCompletionHeader(),
                 "THANK YOU FOR YOUR ORDER");

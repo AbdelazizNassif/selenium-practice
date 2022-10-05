@@ -14,11 +14,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class TestBase {
-// next steps: docker compose (done) + github actions (done)+ run from cmd (done)
-// jenkins pipeline + + property file + json file
+    // todo browser stack + jenkins pipeline
+    // next steps: docker compose (done) + github actions (done)+ run from cmd (done)
+    // jenkins pipeline + + property file + json file
     protected ThreadLocal<WebDriver> driver = new ThreadLocal<>();
     protected ThreadLocal<LoginPage> loginPage = new ThreadLocal<>();
-    boolean localEnvironment = false;
+    boolean localEnvironment = true;
     @BeforeMethod
     public void setup () throws MalformedURLException {
         if (localEnvironment) {
@@ -32,7 +33,7 @@ public class TestBase {
             driver.set(new RemoteWebDriver(new URL("http://localhost:4445/wd/hub"), caps));
         }
         loginPage.set(new LoginPage(driver.get()));
-        driver.get().get("https://www.saucedemo.com/");
+        loginPage.get().navigate();
         driver.get().manage().window().maximize();
     }
 

@@ -6,6 +6,8 @@ import org.testng.asserts.SoftAssert;
 import pages.homePage.HomePage;
 import tests.TestBase;
 
+import static filesReaders.ReadFromFiles.getPropertyByKey;
+
 public class LoginTests extends TestBase {
     private ThreadLocal<HomePage> homePage = new ThreadLocal<>();
     private SoftAssert softAssert = null;
@@ -14,7 +16,8 @@ public class LoginTests extends TestBase {
     public void setupLoginTests ()
     {
         softAssert = new SoftAssert();
-        homePage.set(loginPage.get().loginToApp("standard_user", "secret_sauce")) ;
+        homePage.set(loginPage.get().loginToApp(getPropertyByKey("environment.properties", "USER_NAME")
+                , getPropertyByKey("environment.properties", "PASSWORD"))) ;
     }
 
     @Test(description = "Test Valid Login With Std Credentials")

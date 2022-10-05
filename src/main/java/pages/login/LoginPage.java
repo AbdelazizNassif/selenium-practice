@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pages.homePage.HomePage;
 
+import static filesReaders.ReadFromFiles.getPropertyByKey;
+
 public class LoginPage {
 
     private WebDriver driver;
@@ -24,6 +26,10 @@ public class LoginPage {
         driver.findElement(LOGIN_BUTTON).click();
         return new HomePage(driver);
     }
-
+    public LoginPage navigate()
+    {
+        driver.get(getPropertyByKey("environment.properties", "APP_URL"));
+        return this;
+    }
 
 }
