@@ -1,4 +1,4 @@
-name: Desktop Browsers Tests
+name: Running tests on docker containers
 
 on:
   push:

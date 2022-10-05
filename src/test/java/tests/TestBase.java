@@ -14,7 +14,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class TestBase {
-// next steps: docker compose (done) + github actions + run from cmd (done)
+// next steps: docker compose (done) + github actions (done)+ run from cmd (done)
 // jenkins pipeline + + property file + json file
     protected ThreadLocal<WebDriver> driver = new ThreadLocal<>();
     protected ThreadLocal<LoginPage> loginPage = new ThreadLocal<>();
