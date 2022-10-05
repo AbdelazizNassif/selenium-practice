@@ -1,0 +1,9 @@
+<suite name="Sauce Demo Tests" verbose="1" parallel="methods" thread-count="5" >
+    <test name="Sauce Demo Tests">
+        <classes>
+            <class name="tests.login.LoginTests" > </class>
+            <class name="tests.checkout.CheckoutTests" > </class>
+            <class name="tests.cart.CartTests" > </class>
+        </classes>
+    </test>
+</suite>
