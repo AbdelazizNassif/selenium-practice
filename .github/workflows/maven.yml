@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest, windows-latest]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2.3.4
@@ -38,8 +38,6 @@ jobs:
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
                mvn clean test -DsuiteXmlFile=tests.xml
-          elif [ "$RUNNER_OS" == "macOS" ]; then
-               mvn test -DexecutionAddress="local" -DtargetOperatingSystem="Mac-64" -DmaximumPerformanceMode="2" -DtargetBrowserName="Safari" -DgenerateExtentReports="true" -DcleanExtentReportsDirectoryBeforeExecution="true" -DsetParallel="NONE" -DsetThreadCount="1"
           else
                echo "$RUNNER_OS not supported"
                exit 1
@@ -48,5 +46,5 @@ jobs:
         if: runner.os == 'Windows'
         continue-on-error: true
         run: |
-          mvn test -DexecutionAddress="local" -DtargetOperatingSystem="Windows-64" -DmaximumPerformanceMode="2" -DtargetBrowserName="MicrosoftEdge" -DgenerateExtentReports="true" -DcleanExtentReportsDirectoryBeforeExecution="true" -DsetParallel="NONE" -DsetThreadCount="1"
+          mvn clean test -DsuiteXmlFile=tests.xml
 
