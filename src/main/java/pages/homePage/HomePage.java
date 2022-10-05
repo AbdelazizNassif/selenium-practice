@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pages.cartPage.CartPage;
 
+import java.lang.reflect.Method;
+
 public class HomePage {
 
     private WebDriver driver;
@@ -14,26 +16,26 @@ public class HomePage {
     }
 
     // locators of primary header
-    private final static By APP_LOGO = By.xpath("//div[@class='app_logo']");
+    private final static By APP_LOGO = By.cssSelector(".app_logo");
     private final static By LEFT_BURGER_MENU = By.id("react-burger-menu-btn");
-    private final static By SHOPPING_CART_LINK = By.xpath("//div[@id='shopping_cart_container']/a");
-    private final static By NUMBER_OF_ADDED_ITEMS = By.xpath("//div[@id='shopping_cart_container']/a/span");
+    private final static By SHOPPING_CART_LINK = By.cssSelector("#shopping_cart_container > a");
+    private final static By NUMBER_OF_ADDED_ITEMS = By.cssSelector("#shopping_cart_container > a > span");
 
     // locators of secondary header
     private final static By SEC_HEADER_TITLE = By.
-            xpath("//div[@class='header_secondary_container']//span[@class='title']");
-    private final static By SEC_HEADER_RIGHT_DROPDOWN = By.xpath("//div[@class='right_component']");
+            cssSelector(".header_secondary_container .title");
+    private final static By SEC_HEADER_RIGHT_DROPDOWN = By.cssSelector(".right_component");
     private final static By SEC_HEADER_RIGHT_DROPDOWN_ACTIVE_OPTION = By.
-            xpath("//div[@class='right_component']/span/span");
+            cssSelector(".right_component > span > span");
     // locators of displayed products
-    By INITIAL_DISPLAYED_PRODUCTS = By.xpath("//div[@class='inventory_item_desc']");
-    By SAUCE_LABS_BACKPACK_ADD_TO_CART = By.id("add-to-cart-sauce-labs-backpack");
-    By SAUCE_LABS_BACKPACK_REMOVE_FROM_CART = By.id("remove-sauce-labs-backpack");
-    By SAUCE_LABS_BACKPACK_PRICE = By.xpath
+    private final static By INITIAL_DISPLAYED_PRODUCTS = By.cssSelector(".inventory_item_desc");
+    private final static By SAUCE_LABS_BACKPACK_ADD_TO_CART = By.id("add-to-cart-sauce-labs-backpack");
+    private final static By SAUCE_LABS_BACKPACK_REMOVE_FROM_CART = By.id("remove-sauce-labs-backpack");
+    private final static By SAUCE_LABS_BACKPACK_PRICE = By.xpath
             ("//div[@class=\"inventory_item_price\"][following::button[@id=\"remove-sauce-labs-backpack\"] or following::button[@id=\"add-to-cart-sauce-labs-backpack\"]]");
-    By SAUCE_LABS_BACKPACK_TITLE = By.xpath
+    private final static By SAUCE_LABS_BACKPACK_TITLE = By.xpath
             ("//div[@class=\"inventory_item_name\"][following::button[@id=\"remove-sauce-labs-backpack\"] or following::button[@id=\"add-to-cart-sauce-labs-backpack\"]]");
-    By SAUCE_LABS_BACKPACK_DESCRIPTION = By.xpath
+    private final static By SAUCE_LABS_BACKPACK_DESCRIPTION = By.xpath
         ("//div[@class=\"inventory_item_desc\"][following::button[@id=\"remove-sauce-labs-backpack\"] or following::button[@id=\"add-to-cart-sauce-labs-backpack\"]]") ;
     // page operations
     public boolean isAppPrimaryHeaderContentsDisplayed() {
@@ -47,14 +49,14 @@ public class HomePage {
         if (driver.findElement(SEC_HEADER_TITLE).isDisplayed()) {
             return driver.findElement(SEC_HEADER_TITLE).getText();
         }
-        return "Failed Test Case";
+        return "Failed Test method" + getClass().getEnclosingMethod().getName();
     }
 
     public String getAppSecondaryHeaderSortingDropdownActiveOption() {
         if (driver.findElement(SEC_HEADER_RIGHT_DROPDOWN).isDisplayed()) {
             return driver.findElement(SEC_HEADER_RIGHT_DROPDOWN_ACTIVE_OPTION).getText();
         }
-        return "Failed Test Case";
+        return "Failed Test method" + getClass().getEnclosingMethod().getName();
     }
 
     public int getInitialNumberOfDisplayedProducts() {
