@@ -18,7 +18,7 @@ public class TestBase {
 // jenkins pipeline + + property file + json file
     protected ThreadLocal<WebDriver> driver = new ThreadLocal<>();
     protected ThreadLocal<LoginPage> loginPage = new ThreadLocal<>();
-    boolean localEnvironment = false;
+    boolean localEnvironment = true;
     @BeforeMethod
     public void setup () throws MalformedURLException {
         if (localEnvironment) {
