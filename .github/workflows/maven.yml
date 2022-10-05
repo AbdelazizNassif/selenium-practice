@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2.3.4
@@ -32,7 +32,7 @@ jobs:
       - name: Check running containers
         if: runner.os == 'Linux'
         run: docker ps
-      - name: Run tests on Linux/MacOS
+      - name: Run tests on Linux
         if: runner.os != 'Windows'
         continue-on-error: true
         run: |
@@ -42,9 +42,3 @@ jobs:
                echo "$RUNNER_OS not supported"
                exit 1
           fi
-      - name: Run tests on Windows
-        if: runner.os == 'Windows'
-        continue-on-error: true
-        run: |
-          mvn clean test -DsuiteXmlFile=tests.xml
-
