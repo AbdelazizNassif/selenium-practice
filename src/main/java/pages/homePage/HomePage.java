@@ -2,17 +2,21 @@ package pages.homePage;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.cartPage.CartPage;
 
 import java.lang.reflect.Method;
+import java.time.Duration;
 
 public class HomePage {
 
     private WebDriver driver;
-
+    WebDriverWait wait;
     // constructor
     public HomePage(WebDriver driver) {
         this.driver = driver;
+        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
     // locators of primary header
@@ -65,6 +69,7 @@ public class HomePage {
 
     public void addBackpackToCart ()
     {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(SAUCE_LABS_BACKPACK_ADD_TO_CART));
         driver.findElement(SAUCE_LABS_BACKPACK_ADD_TO_CART).click();
     }
     public boolean isAddToCartButtonDisplayed ()
