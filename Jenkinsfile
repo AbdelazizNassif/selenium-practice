@@ -4,12 +4,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                docker compose -f src/test/resources/docker-compose-file.yml up --scale chrome=5 -d
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+                mvn clean test -DsuiteXmlFile=tests.xml
             }
         }
         stage('Deploy') {
