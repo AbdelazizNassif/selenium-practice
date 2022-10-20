@@ -1,11 +1,23 @@
 pipeline {
-    agent {
-        docker { image 'node:16.13.1-alpine' }
+    agent any
+    tools { 
+        maven 'Maven 3.3.9' 
+        jdk 'jdk8' 
     }
     stages {
-        stage('Test') {
+        stage ('Initialize') {
             steps {
-                sh 'node --version'
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                ''' 
+            }
+        }
+
+        stage ('Build') {
+            steps {
+                echo 'This is a minimal pipeline.'
+                sh 'mvn -version'
             }
         }
     }
