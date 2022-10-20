@@ -4,12 +4,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Deploying....'
+                sh "docker -version"
             }
         }
         stage('Test') {
             steps {
-                sh "mvn clean test -DsuiteXmlFile=tests.xml"
+                sh "mvn -version"
             }
         }
         stage('Deploy') {
